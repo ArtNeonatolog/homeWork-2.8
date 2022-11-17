@@ -86,11 +86,7 @@ public class Products {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Products products = (Products) o;
-        if (name.equals(products.name) && price.equals(products.price) && amountKg.equals(products.amountKg) && bought.equals(products.bought)) {
-            throw new RuntimeException("Такой продукт в списке уже есть!");
-        }else {
-            return products.bought;
-        }
+        return Objects.equals(name, products.name) && Objects.equals(price, products.price) && Objects.equals(amountKg, products.amountKg) && Objects.equals(bought, products.bought);
     }
 
     @Override
