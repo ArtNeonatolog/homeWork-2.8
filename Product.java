@@ -1,17 +1,15 @@
 package PACKAGE_NAME;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-public class Products {
-    private String name;
-    private Integer price;
-    private Double amountKg;
-    private final Boolean bought;
+public class Product {
+    private final String name;
+    private final Integer price;
+    private final Double amountKg;
+    private Boolean bought;
 
-    public Products(String name, Integer price, Double amountKg, Boolean bought) {
-        if (name != null && !name.isEmpty() && !name.isBlank()) {
+    public Product(String name, Integer price, Double amountKg, Boolean bought) {
+        if (name != null || !name.isEmpty() || !name.isBlank()) {
             this.name = name;
         } else {
            throw new RuntimeException("Заполните карточку товара полностью");
@@ -26,15 +24,16 @@ public class Products {
         } else {
             throw new RuntimeException("Заполните карточку товара полностью");
         }
-            this.bought = true;
+            this.bought = false;
     }
 
-    public Boolean getBought() {
+    public Boolean isBought() {
+
         return bought;
     }
 
     public String getName() {
-        if (name != null && !name.isEmpty() && !name.isBlank()) {
+        if (name != null || !name.isEmpty() || !name.isBlank()) {
             return name;
         } else {
             throw new RuntimeException("Заполните карточку товара полностью");
@@ -57,49 +56,31 @@ public class Products {
         }
     }
 
-    public void setName(String name) {
-        if (name != null && !name.isEmpty() && !name.isBlank()) {
-            this.name = name;
-        } else {
-            throw new RuntimeException("Заполните карточку товара полностью");
-        }
-    }
-
-    public void setPrice(Integer price) {
-        if (price != null) {
-            this.price = price;
-        } else {
-            throw new RuntimeException("Заполните карточку товара полностью");
-        }
-    }
-
-    public void setAmountKg(Double amountKg) {
-        if (amountKg != null) {
-            this.amountKg = amountKg;
-        } else {
-            throw new RuntimeException("Заполните карточку товара полностью");
-        }
+    public void setBought() {
+        this.bought = true;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Products products = (Products) o;
-        return Objects.equals(name, products.name) && Objects.equals(price, products.price) && Objects.equals(amountKg, products.amountKg) && Objects.equals(bought, products.bought);
+        Product product = (Product) o;
+        return Objects.equals(name, product.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, amountKg, bought);
+
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
+        String checkedString = this.isBought() ? "Да":"Нет";
         return
                 "название продукта - " + name +
                 ", цена - " + price +
                 " рублей, вес - " + amountKg +
-                " кг, продукт куплен - " + bought;
+                " кг, продукт куплен - " + checkedString;
     }
 }

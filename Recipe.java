@@ -5,61 +5,58 @@ import java.util.Objects;
 import java.util.Set;
 
 
-public class Recipe<T extends Products> {
+public class Recipe {
     private final String name;
 
-    private final Set<Products> listOfProduct;
+    private Set<Product> products = new HashSet<>();
 
-    private T product;
-
-    private Integer sum = 0;
-
-    public Recipe(String name, Set<Products> listOfProduct) {
-        this.name = name;
-        this.listOfProduct = listOfProduct;
+    public Recipe(String name, Set<Product> products) {
+        if (name != null || !name.isEmpty() || !name.isBlank()) {
+            this.name = name;
+        } else {
+            throw new RuntimeException("Заполните карточку товара полностью");
+        }
+        if (products == null || !name.isEmpty() || !name.isBlank()) {
+            this.products = products;
+        } else {
+            throw new RuntimeException("Заполните карточку товара полностью");
+        }
     }
 
-    public int totalSumOfPrices() {
-        for (Products product : listOfProduct) {
+    public double totalSumOfPrices(Set<Product> products) {
+        double sum = 0;
+        for (Product product : products) {
             sum += product.getPrice();
         }
         return sum;
-    }
-
-    public Integer getSum() {
-        return sum;
-    }
-
-    public T getProduct() {
-        return product;
     }
 
     public String getName() {
         return name;
     }
 
-    public Set<Products> getListOfProduct() {
-        return listOfProduct;
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Recipe<?> recipe = (Recipe<?>) o;
-        return Objects.equals(name, recipe.name) && Objects.equals(listOfProduct, recipe.listOfProduct) && Objects.equals(product, recipe.product) && Objects.equals(sum, recipe.sum);
+        Recipe recipe = (Recipe) o;
+        return Objects.equals(name, recipe.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, listOfProduct, product, sum);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
         return
-                "имя рецепта - " + name +
-                ", набор продуктов - " + listOfProduct +
-                ", общая стоимость продуктов - " + totalSumOfPrices() + " рублей";
+                "Название рецета - " + name +
+                ", набор продуктов: " + products +
+                        ", стоимость продуктов - " + totalSumOfPrices(products) + " рублей.";
     }
 }
