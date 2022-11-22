@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ProductsList {
+public class ProductsList  {
     private final Set<Product> products = new HashSet<>();
 
     public void addProduct(Product product) throws ProductsAlreadyExistsExeption {
