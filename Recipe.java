@@ -1,42 +1,41 @@
 package PACKAGE_NAME;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 public class Recipe {
     private final String name;
 
-    private Set<Product> products = new HashSet<>();
+    private Map<Product, Double> products = new HashMap<>();
 
-    public Recipe(String name, Set<Product> products) {
+    public Recipe(String name) {
         if (name != null || !name.isEmpty() || !name.isBlank()) {
             this.name = name;
         } else {
             throw new RuntimeException("Заполните карточку товара полностью");
         }
-        if (products == null || !name.isEmpty() || !name.isBlank()) {
-            this.products = products;
-        } else {
-            throw new RuntimeException("Заполните карточку товара полностью");
-        }
     }
 
-    public double totalSumOfPrices(Set<Product> products) {
+    public void addProduct (Product product, double quantity) {
+        if (quantity <= 0) {
+            quantity = 1;
+        }
+        if(this.products.containsKey(product)) {
+            this.products.put(product, this.products.get(product) + quantity);
+        } else {
+            this.products.put(product, quantity);
+        }
+    }
+    public double totalSumOfPrices(Map<Product, Double> products) {
         double sum = 0;
-        for (Product product : products) {
-            sum += product.getPrice();
+        for (Map.Entry<Product, Double> product : this.products.entrySet()) {
+            sum += product.getKey().getPrice() * product.getValue();
         }
         return sum;
     }
 
     public String getName() {
         return name;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
     }
 
     @Override
@@ -55,8 +54,8 @@ public class Recipe {
     @Override
     public String toString() {
         return
-                "Название рецета - " + name +
-                ", набор продуктов: " + products +
+                "Название рецепта - " + name +
+                ", набор продуктов: " + products.keySet() + ", количество продукта - " + products.values() +
                         ", стоимость продуктов - " + totalSumOfPrices(products) + " рублей.";
     }
 }

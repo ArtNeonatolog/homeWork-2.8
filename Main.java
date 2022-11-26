@@ -7,13 +7,13 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) throws ProductsAlreadyExistsExeption {
-        Product bread = new Product("хлеб", 40, 0.5, true);
-        Product butter = new Product("сливочное масло", 120, 0.18, true);
-        Product cheese = new Product("сыр", 150, 0.2, true);
-        Product milk = new Product("молоко", 50, 0.9, true);
-        Product apples = new Product("яблоки", 100, 1.0, true);
-        Product bananas = new Product("бананы", 110, 1.5, true);
-        Product bananas2 = new Product("бананы", 112, 1.4, true);
+        Product bread = new Product("хлеб", 80, false);
+        Product butter = new Product("сливочное масло", 700, false);
+        Product cheese = new Product("сыр", 800, false);
+        Product milk = new Product("молоко", 60, false);
+        Product apples = new Product("яблоки", 90, false);
+        Product bananas = new Product("бананы", 80, false);
+        Product peanut = new Product("орехи", 600, false);
 
         ProductsList productsList1 = new ProductsList();
         ProductsList productsList2 = new ProductsList();
@@ -34,11 +34,19 @@ public class Main {
         System.out.println(productsList2);
 
 
-        Recipe recipe1 = new Recipe ("Рецепт №1", (Set<Product>) productsList1);
-        Recipe recipe2 = new Recipe ("Рецепт №2", (Set<Product>) productsList2);
+        Recipe recipe1 = new Recipe ("Рецепт №1");
+        Recipe recipe2 = new Recipe ("Рецепт №2");
 
+        recipe1.addProduct(bread, 0.5);
+        recipe1.addProduct(milk,1.0);
+        recipe1.addProduct(bananas, 2.0);
 
-        recipe1.totalSumOfPrices((Set<Product>) productsList2);
+        recipe2.addProduct(cheese, 1.0);
+        recipe2.addProduct(butter, 0.5);
+        recipe2.addProduct(peanut, 0.3);
+
+        System.out.println(recipe1);
+        System.out.println(recipe2);
 
         RecipesList recipes = new RecipesList();
         recipes.addRecipeList(recipe1);
