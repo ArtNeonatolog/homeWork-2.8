@@ -5,10 +5,9 @@ import java.util.Objects;
 public class Product {
     private final String name;
     private final Integer price;
-    private final Double amountKg;
     private Boolean bought;
 
-    public Product(String name, Integer price, Double amountKg, Boolean bought) {
+    public Product(String name, Integer price, Boolean bought) {
         if (name != null || !name.isEmpty() || !name.isBlank()) {
             this.name = name;
         } else {
@@ -16,11 +15,6 @@ public class Product {
         }
         if (price != null) {
             this.price = price;
-        } else {
-            throw new RuntimeException("Заполните карточку товара полностью");
-        }
-        if (amountKg != null) {
-            this.amountKg = amountKg;
         } else {
             throw new RuntimeException("Заполните карточку товара полностью");
         }
@@ -43,14 +37,6 @@ public class Product {
     public Integer getPrice() {
         if (price != null) {
             return price;
-        } else {
-            throw new RuntimeException("Заполните карточку товара полностью");
-        }
-    }
-
-    public Double getAmountKg() {
-        if (amountKg != null) {
-            return amountKg;
         } else {
             throw new RuntimeException("Заполните карточку товара полностью");
         }
@@ -80,7 +66,6 @@ public class Product {
         return
                 "название продукта - " + name +
                 ", цена - " + price +
-                " рублей, вес - " + amountKg +
-                " кг, продукт куплен - " + checkedString;
+                " рублей, продукт куплен - " + checkedString;
     }
 }
